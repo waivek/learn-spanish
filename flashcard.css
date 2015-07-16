@@ -1,0 +1,15 @@
+div {
+    display: table;
+    height: 125px;
+    /* width: 125px; */
+    background: pink;
+    width: 100%;
+}
+span {
+    
+    // Center will work only for one line text blocks
+    background-color: rgb(255, 0, 0);
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
