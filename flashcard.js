@@ -3,7 +3,7 @@
 // GLOBALS ARE BAD
 // TODO: USE MODULES OR F.P. VOODOO TO DE-GLOBALIZE
 
-var flashcardObject = function() {
+var fobj = function() {
     var shuffle = false;
     var is_spanish = true;
     var i = 0;
@@ -36,6 +36,11 @@ var flashcardObject = function() {
             i = (i+1) % array.length;
             return i;
         },
+        setRandomArrayIndex: function() {
+            i = Math.random() * array.length;
+            i = Math.floor(i);
+            return i;
+        },
         decrementArrayIndex: function() {
             if(i <= 0) {
                 i = array.length;
@@ -46,8 +51,18 @@ var flashcardObject = function() {
         getArrayLength: function() {
             return array.length;
         },
-
-
+        isInvalidIndex: function() {
+            if(i >= array.length || i < 0) {
+                return true;
+            }
+            if(!Number.isInteger(i)) {
+                return true;
+            }
+            return false;
+        },
+        getCurrentCard: function() {
+            return array[i];
+        }
     };
 }();
 var changeWordInSpan = function(str) {
@@ -57,50 +72,37 @@ var changeWordInSpan = function(str) {
         alert('Argument \'str\' is not string but ' + typeof str);
     }
 };
-var isInvalidIndex = function(i) {
-    if(i >= array.length || i < 0) {
-        return true;
-    }
-    if(!Number.isInteger(i)) {
-        return true;
-    }
-    return false;
-};
 var refreshSpan = function() {
-    if(isInvalidIndex(i)) {
-        alert('Value of i is ' + i + ' which is invalid');
+    if(fobj.isInvalidIndex()) {
+        alert('Value of i is ' + fobj.getArrayIndex() + ' which is invalid');
     }
-    var obj = array[i];
+    var obj = fobj.getCurrentCard();
     var key = Object.keys(obj)[0];
     var value = obj[key];
-    var word = is_spanish ? key : value;
+    var word = fobj.getIsSpanish() ? key : value;
     changeWordInSpan(word);
 };
 var prevWord = function() {
-    if(i <= 0) {
-        i = array.length;
-    }
-    i = i-1;
+    fobj.decrementArrayIndex();
     refreshSpan();
 };
 
 var randomWord = function() {
-    i = Math.random() * array.length;
-    i = Math.floor(i);
+    fobj.setRandomArrayIndex();
     refreshSpan();
 };
 var nextWord = function() {
-    i = (i+1) % array.length;
+    fobj.incrementArrayIndex();
     refreshSpan();
 };
 
 var toggleLanguage = function() {
-    is_spanish = !is_spanish;
+    fobj.toggleIsSpanish();
     refreshSpan();
 };
 
 var toggleShuffle = function(button) {
-    shuffle = !shuffle;
+    shuffle = fobj.toggleShuffle();
     if(shuffle) {
         button.innerHTML = 'Shuffle : ON';
     } else {
@@ -108,4 +110,3 @@ var toggleShuffle = function(button) {
     }
 };
 
-// nextWord();
