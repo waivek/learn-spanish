@@ -2,16 +2,54 @@
 
 // GLOBALS ARE BAD
 // TODO: USE MODULES OR F.P. VOODOO TO DE-GLOBALIZE
-var shuffle = false;
-var is_spanish = true;
-var i = 0;
-var array = [
-    {"PAGAR" : "to pay"},
-    {"GUSTAR": "to like"},
-    {"HABLAR": "to speak"},
-    {"CORRER": "to run"},
-    {"CAMINAR": "to walk"}
-];
+
+var flashcardObject = function() {
+    var shuffle = false;
+    var is_spanish = true;
+    var i = 0;
+    var array = [
+        {"PAGAR" : "to pay"},
+        {"GUSTAR": "to like"},
+        {"HABLAR": "to speak"},
+        {"CORRER": "to run"},
+        {"CAMINAR": "to walk"}
+    ];
+    return {
+        toggleShuffle: function() {
+            shuffle = !shuffle;
+            return shuffle;
+        },
+        getShuffle: function() {
+            return shuffle;
+        },
+        toggleIsSpanish: function() {
+            is_spanish = !is_spanish;
+            return is_spanish;
+        },
+        getIsSpanish: function() {
+            return is_spanish;
+        },
+        getArrayIndex: function() {
+            return i;
+        },
+        incrementArrayIndex: function() {
+            i = (i+1) % array.length;
+            return i;
+        },
+        decrementArrayIndex: function() {
+            if(i <= 0) {
+                i = array.length;
+            }
+            i = i-1;
+            return i;
+        },
+        getArrayLength: function() {
+            return array.length;
+        },
+
+
+    };
+}();
 var changeWordInSpan = function(str) {
     if(typeof str === 'string') {
         word.textContent = str;
