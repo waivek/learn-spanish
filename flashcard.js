@@ -1,9 +1,4 @@
-
-
-// GLOBALS ARE BAD
-// TODO: USE MODULES OR F.P. VOODOO TO DE-GLOBALIZE
-
-var fobj = function() {
+var fobjCreator = function() {
     var shuffle = false;
     var is_spanish = true;
     var i = 0;
@@ -19,6 +14,7 @@ var fobj = function() {
             shuffle = !shuffle;
             return shuffle;
         },
+        // UNTESTABLE
         getShuffle: function() {
             return shuffle;
         },
@@ -26,6 +22,7 @@ var fobj = function() {
             is_spanish = !is_spanish;
             return is_spanish;
         },
+        // UNTESTABLE
         getIsSpanish: function() {
             return is_spanish;
         },
@@ -36,6 +33,7 @@ var fobj = function() {
             i = (i+1) % array.length;
             return i;
         },
+        // UNTESTABLE
         setRandomArrayIndex: function() {
             i = Math.random() * array.length;
             i = Math.floor(i);
@@ -48,9 +46,11 @@ var fobj = function() {
             i = i-1;
             return i;
         },
+        // UNTESTABLE
         getArrayLength: function() {
             return array.length;
         },
+        // UNTESTABLE
         isInvalidIndex: function() {
             if(i >= array.length || i < 0) {
                 return true;
@@ -60,11 +60,65 @@ var fobj = function() {
             }
             return false;
         },
+        // UNTESTABLE
         getCurrentCard: function() {
             return array[i];
         }
     };
-}();
+};
+var fobjTester = function(fobj) {
+    return {
+        test_toggleShuffle: function() {
+            if(fobj.getShuffle() === !fobj.toggleShuffle()) {
+                console.log('function OK: toggleShuffle');
+                return true;
+            } else {
+                console.log('ERROR: toggleShuffle');
+                return false;
+            }
+        }, 
+        test_toggleIsSpanish: function() {
+            if(fobj.getIsSpanish() === !fobj.toggleIsSpanish()) {
+                console.log('function OK: toggleIsSpanish');
+                return true;
+            } else {
+                console.log('ERROR: toggleIsSpanish');
+                return false;
+            }
+        },
+        test_incrementArrayIndex: function() {
+            var oldIndex = fobj.getArrayIndex();
+            var newIndex = fobj.incrementArrayIndex();
+            if(newIndex - oldIndex === 1) {
+                console.log('function OK: incrementArrayIndex');
+                return true;
+            } else {
+                console.log('ERROR: incrementArrayIndex');
+                return false;
+            }
+        },
+        test_decrementArrayIndex: function() {
+            var oldIndex = fobj.getArrayIndex();
+            var newIndex = fobj.decrementArrayIndex();
+            if(oldIndex - newIndex === 1) {
+                console.log('function OK: decrementArrayIndex');
+                return true;
+            } else {
+                console.log('ERROR: decrementArrayIndex');
+                return false;
+            }
+        },
+        test_all: function() {
+            var fobjT = fobjTester(fobj);
+            var key;
+            for(key in fobjT) {
+                if(key !== 'test_all' && typeof fobjT[key] === 'function') {
+                    fobjT[key]();
+                }
+            }
+        }
+    };
+};
 var changeWordInSpan = function(str) {
     if(typeof str === 'string') {
         word.textContent = str;
@@ -110,3 +164,6 @@ var toggleShuffle = function(button) {
     }
 };
 
+var fobj = fobjCreator();
+var fobjT = fobjTester(fobj);
+fobjT.test_all();
