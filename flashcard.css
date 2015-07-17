@@ -1,7 +1,9 @@
+div img {
+    height:125px;
+}
 div {
     display: table;
     height: 125px;
-    /* width: 125px; */
     background: pink;
     width: 100%;
 }

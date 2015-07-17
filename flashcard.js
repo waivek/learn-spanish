@@ -139,16 +139,33 @@ var getCurrentTuple = function() {
     }
     return fobj.getCurrentCard();
 };
+var getWord = function(lang) {
+    var obj = getCurrentTuple();
+    var spanish_word = Object.keys(obj)[0];
+    var return_value = '';
+    if (lang === 'spanish') {
+        return_value = spanish_word;
+    } else if (lang === 'english') {
+        return_value = obj[spanish_word];
+    } else {
+        alert('getWord: value of lang is invalid');
+        console.log(lang);
+    }
+    return return_value;
+};
+var getWordInSpanish = function() {
+    return getWord('spanish');
+};
+var getWordInEnglish = function() {
+    return getWord('english');
+};
     
 
 
 // var getWordInEnglish = function() {
 
 var refreshSpan = function() {
-    var obj = getCurrentTuple();
-    var key = Object.keys(obj)[0];
-    var value = obj[key];
-    var word = fobj.getIsSpanish() ? key : value;
+    var word = fobj.getIsSpanish() ? getWordInSpanish() : getWordInEnglish();
     changeWordInSpan(word);
 };
 var prevWord = function() {
@@ -156,9 +173,24 @@ var prevWord = function() {
     refreshSpan();
 };
 
+var getImageLocation = function() {
+    var spanish_word = getWordInSpanish();
+    var upper_case_spanish_word = spanish_word.toUpperCase();
+    var image_location = 'images/' + upper_case_spanish_word + '.jpg';
+    return image_location;
+};
 var togglePicture = function() {
+    var spanish_word;
+    var div_word = document.getElementById('word');
+    var img_src = '';
     fobj.toggleIsPicture();
-
+    if(fobj.getIsPicture()) {
+        img_src = getImageLocation();
+        div_word.innerHTML = '<img src = "' + img_src + '">';
+    } else {
+        div_word.innerHTML = '';
+        refreshSpan();
+    }
 };
 
 var randomWord = function() {
