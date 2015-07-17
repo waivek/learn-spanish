@@ -126,13 +126,6 @@ var fobjTester = function(fobj) {
         }
     };
 };
-var changeWordInSpan = function(str) {
-    if(typeof str === 'string') {
-        word.textContent = str;
-    } else {
-        alert('Argument \'str\' is not string but ' + typeof str);
-    }
-};
 var getCurrentTuple = function() {
     if(fobj.isInvalidIndex()) {
         alert('Value of i is ' + fobj.getArrayIndex() + ' which is invalid');
@@ -180,7 +173,7 @@ var refreshSpan = function() {
         imageOn();
     } else {
         var word = fobj.getIsSpanish() ? getWordInSpanish() : getWordInEnglish();
-        changeWordInSpan(word);
+        setDivWord(word);
     }
 };
 var prevWord = function() {
