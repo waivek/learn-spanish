@@ -165,8 +165,14 @@ var getWordInEnglish = function() {
 // var getWordInEnglish = function() {
 
 var refreshSpan = function() {
-    var word = fobj.getIsSpanish() ? getWordInSpanish() : getWordInEnglish();
-    changeWordInSpan(word);
+    var div_word = document.getElementById('word');
+    if (fobj.getIsPicture()) {
+        img_src = getImageLocation();
+        div_word.innerHTML = '<img src = "' + img_src + '">';
+    } else {
+        var word = fobj.getIsSpanish() ? getWordInSpanish() : getWordInEnglish();
+        changeWordInSpan(word);
+    }
 };
 var prevWord = function() {
     fobj.decrementArrayIndex();
