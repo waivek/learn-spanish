@@ -164,11 +164,20 @@ var getWordInEnglish = function() {
 
 // var getWordInEnglish = function() {
 
-var refreshSpan = function() {
+var setDivWord = function(str) {
     var div_word = document.getElementById('word');
+    div_word.innerHTML = str;
+};
+var imageOn = function() {
+    img_src = getImageLocation();
+    setDivWord('<img src = "' + img_src + '">');
+};
+var imageOff = function() {
+    setDivWord('');
+};
+var refreshSpan = function() {
     if (fobj.getIsPicture()) {
-        img_src = getImageLocation();
-        div_word.innerHTML = '<img src = "' + img_src + '">';
+        imageOn();
     } else {
         var word = fobj.getIsSpanish() ? getWordInSpanish() : getWordInEnglish();
         changeWordInSpan(word);
@@ -186,15 +195,11 @@ var getImageLocation = function() {
     return image_location;
 };
 var togglePicture = function() {
-    var spanish_word;
-    var div_word = document.getElementById('word');
-    var img_src = '';
     fobj.toggleIsPicture();
     if(fobj.getIsPicture()) {
-        img_src = getImageLocation();
-        div_word.innerHTML = '<img src = "' + img_src + '">';
+        imageOn();
     } else {
-        div_word.innerHTML = '';
+        imageOff();
         refreshSpan();
     }
 };
