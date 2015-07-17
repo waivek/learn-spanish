@@ -1,22 +1,22 @@
 var fobjCreator = function() {
-    var shuffle = false;
+    //TODO: Change to true after development
+    var is_picture = false;
     var is_spanish = true;
     var i = 0;
     var array = [
         {"PAGAR" : "to pay"},
         {"GUSTAR": "to like"},
         {"HABLAR": "to speak"},
-        {"CORRER": "to run"},
+        {"LLEGAR": "to reach, arrive"},
         {"CAMINAR": "to walk"}
     ];
     return {
-        toggleShuffle: function() {
-            shuffle = !shuffle;
-            return shuffle;
+        toggleIsPicture: function() {
+            is_picture = !is_picture;
+            return is_picture;
         },
-        // UNTESTABLE
-        getShuffle: function() {
-            return shuffle;
+        getIsPicture: function() {
+            return is_picture;
         },
         toggleIsSpanish: function() {
             is_spanish = !is_spanish;
@@ -60,6 +60,8 @@ var fobjCreator = function() {
             }
             return false;
         },
+        toggleImage: function() {
+        },
         // UNTESTABLE
         getCurrentCard: function() {
             return array[i];
@@ -68,15 +70,6 @@ var fobjCreator = function() {
 };
 var fobjTester = function(fobj) {
     return {
-        test_toggleShuffle: function() {
-            if(fobj.getShuffle() === !fobj.toggleShuffle()) {
-                console.log('function OK: toggleShuffle');
-                return true;
-            } else {
-                console.log('ERROR: toggleShuffle');
-                return false;
-            }
-        }, 
         test_toggleIsSpanish: function() {
             if(fobj.getIsSpanish() === !fobj.toggleIsSpanish()) {
                 console.log('function OK: toggleIsSpanish');
@@ -110,10 +103,24 @@ var fobjTester = function(fobj) {
         },
         test_all: function() {
             var fobjT = fobjTester(fobj);
-            var key;
+            var key = '';
+            var name = '';
+            var starts_with_get = false;
+            var is_function = false;
+            var is_getter_function = false;
             for(key in fobjT) {
                 if(key !== 'test_all' && typeof fobjT[key] === 'function') {
                     fobjT[key]();
+                }
+            }
+            console.log('Value of private variables:');
+            for(key in fobj) {
+                starts_with_get = key.substring(0,3) === 'get';
+                is_function = typeof fobj[key] === 'function';
+                is_getter_function = starts_with_get && is_function;
+                if(is_getter_function) {
+                        name = key.substring(3);
+                        console.log('Value of ' + name + ' is ' + fobj[key]());
                 }
             }
         }
@@ -126,11 +133,19 @@ var changeWordInSpan = function(str) {
         alert('Argument \'str\' is not string but ' + typeof str);
     }
 };
-var refreshSpan = function() {
+var getCurrentTuple = function() {
     if(fobj.isInvalidIndex()) {
         alert('Value of i is ' + fobj.getArrayIndex() + ' which is invalid');
     }
-    var obj = fobj.getCurrentCard();
+    return fobj.getCurrentCard();
+};
+    
+
+
+// var getWordInEnglish = function() {
+
+var refreshSpan = function() {
+    var obj = getCurrentTuple();
     var key = Object.keys(obj)[0];
     var value = obj[key];
     var word = fobj.getIsSpanish() ? key : value;
@@ -139,6 +154,11 @@ var refreshSpan = function() {
 var prevWord = function() {
     fobj.decrementArrayIndex();
     refreshSpan();
+};
+
+var togglePicture = function() {
+    fobj.toggleIsPicture();
+
 };
 
 var randomWord = function() {
@@ -155,14 +175,6 @@ var toggleLanguage = function() {
     refreshSpan();
 };
 
-var toggleShuffle = function(button) {
-    shuffle = fobj.toggleShuffle();
-    if(shuffle) {
-        button.innerHTML = 'Shuffle : ON';
-    } else {
-        button.innerHTML = 'Shuffle : OFF';
-    }
-};
 
 var fobj = fobjCreator();
 var fobjT = fobjTester(fobj);
