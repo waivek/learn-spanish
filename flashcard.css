@@ -1,5 +1,5 @@
-div img {
-    height:125px;
+div > span > img {
+    height: 125px;
 }
 div {
     display: table;

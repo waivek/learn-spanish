@@ -157,23 +157,24 @@ var getWordInEnglish = function() {
 
 // var getWordInEnglish = function() {
 
-var setDivWord = function(str) {
-    var div_word = document.getElementById('word');
-    div_word.innerHTML = str;
+var setSpanHTML = function(str) {
+    var span_word = document.getElementById('word');
+    span_word.innerHTML = str;
 };
 var imageOn = function() {
     img_src = getImageLocation();
-    setDivWord('<img src = "' + img_src + '">');
+    setSpanHTML('<img src = "' + img_src + '">');
 };
 var imageOff = function() {
-    setDivWord('');
+    setSpanHTML('');
 };
 var refreshSpan = function() {
     if (fobj.getIsPicture()) {
         imageOn();
     } else {
-        var word = fobj.getIsSpanish() ? getWordInSpanish() : getWordInEnglish();
-        setDivWord(word);
+        var word = fobj.getIsSpanish() ? getWordInSpanish() : 
+            getWordInEnglish();
+        setSpanHTML(word);
     }
 };
 var prevWord = function() {
@@ -182,19 +183,14 @@ var prevWord = function() {
 };
 
 var getImageLocation = function() {
-    var spanish_word = getWordInSpanish();
-    var upper_case_spanish_word = spanish_word.toUpperCase();
-    var image_location = 'images/' + upper_case_spanish_word + '.jpg';
-    return image_location;
+    return 'images/' + getWordInSpanish().toUpperCase() + '.jpg';
 };
 var togglePicture = function() {
     fobj.toggleIsPicture();
-    if(fobj.getIsPicture()) {
-        imageOn();
-    } else {
+    if(!fobj.getIsPicture()) {
         imageOff();
-        refreshSpan();
     }
+    refreshSpan();
 };
 
 var randomWord = function() {
