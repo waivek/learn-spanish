@@ -7,7 +7,7 @@ div {
     background: pink;
     width: 100%;
 }
-span {
+div > span {
     
     // Center will work only for one line text blocks
     background-color: rgb(255, 0, 0);
