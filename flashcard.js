@@ -2,7 +2,7 @@ var fobjCreator = function() {
     //TODO: Change to true after development
     var is_picture = false;
     var is_spanish = true;
-    var i = 0;
+    var hello = 'hello';
     var array = [
         {"PAGAR" : "to pay"},
         {"GUSTAR": "to like"},
@@ -10,7 +10,11 @@ var fobjCreator = function() {
         {"LLEGAR": "to reach, arrive"},
         {"CAMINAR": "to walk"}
     ];
+    var i = 0;
     return {
+        setArray: function(new_array) {
+            array = new_array;
+        },
         toggleIsPicture: function() {
             is_picture = !is_picture;
             return is_picture;
@@ -67,6 +71,47 @@ var fobjCreator = function() {
             return array[i];
         }
     };
+};
+var is_array = function(value) {
+    return value &&
+        typeof value === 'object' &&
+        typeof value.length === 'number' &&
+        typeof value.splice === 'function' &&
+        !(value.propertyIsEnumberable('length'));
+};
+var is_valid_object = function(obj) {
+    var value = '';
+    var key = Object.keys(obj);
+    if(key.length !== 1) {
+        return false;
+    } else {
+        key = key[0];
+    }
+    value = obj[key];
+    if(typeof value !== 'string' || typeof key !== 'string') {
+        return false;
+    } else {
+        return true;
+    }
+};
+var is_valid_array = function(array) {
+    var bool = true;
+    var i;
+    for(i = 0; i < array.length; i++) {
+        if(!is_valid_object(a[i])) {
+            bool = false;
+        }
+    }
+    return bool;
+};
+var setArray = function(a) {
+    if(!is_array(a)) {
+        console.log('setArray: a is not an array');
+    } else if (!is_valid_array(a)){
+        console.log('setArray: a is an invalid array'); 
+    } else {
+        fobj.setArray(a);
+    }
 };
 var fobjTester = function(fobj) {
     return {
@@ -153,10 +198,7 @@ var getWordInEnglish = function() {
     return getWord('english');
 };
     
-
-
 // var getWordInEnglish = function() {
-
 var setSpanHTML = function(str) {
     var span_word = document.getElementById('word');
     span_word.innerHTML = str;
@@ -181,7 +223,6 @@ var prevWord = function() {
     fobj.decrementArrayIndex();
     refreshSpan();
 };
-
 var getImageLocation = function() {
     return 'images/' + getWordInSpanish().toUpperCase() + '.jpg';
 };
@@ -192,7 +233,6 @@ var togglePicture = function() {
     }
     refreshSpan();
 };
-
 var randomWord = function() {
     fobj.setRandomArrayIndex();
     refreshSpan();
@@ -201,13 +241,10 @@ var nextWord = function() {
     fobj.incrementArrayIndex();
     refreshSpan();
 };
-
 var toggleLanguage = function() {
     fobj.toggleIsSpanish();
     refreshSpan();
 };
-
-
 var fobj = fobjCreator();
 var fobjT = fobjTester(fobj);
 fobjT.test_all();
