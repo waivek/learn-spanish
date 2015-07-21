@@ -2,7 +2,6 @@ var fobjCreator = function() {
     //TODO: Change to true after development
     var is_picture = false;
     var is_spanish = true;
-    var hello = 'hello';
     var array = [
         {"PAGAR" : "to pay"},
         {"GUSTAR": "to like"},
@@ -37,17 +36,17 @@ var fobjCreator = function() {
             i = (i+1) % array.length;
             return i;
         },
-        // UNTESTABLE
-        setRandomArrayIndex: function() {
-            i = Math.random() * array.length;
-            i = Math.floor(i);
-            return i;
-        },
         decrementArrayIndex: function() {
             if(i <= 0) {
                 i = array.length;
             }
             i = i-1;
+            return i;
+        },
+        // UNTESTABLE
+        setRandomArrayIndex: function() {
+            i = Math.random() * array.length;
+            i = Math.floor(i);
             return i;
         },
         // UNTESTABLE
@@ -64,8 +63,6 @@ var fobjCreator = function() {
             }
             return false;
         },
-        toggleImage: function() {
-        },
         // UNTESTABLE
         getCurrentCard: function() {
             return array[i];
@@ -77,10 +74,11 @@ var is_array = function(value) {
         typeof value === 'object' &&
         typeof value.length === 'number' &&
         typeof value.splice === 'function' &&
-        !(value.propertyIsEnumberable('length'));
+        !(value.propertyIsEnumerable('length'));
 };
 var is_valid_object = function(obj) {
     var value = '';
+    //TODO: Defensive Programming Over Here
     var key = Object.keys(obj);
     if(key.length !== 1) {
         return false;
@@ -98,7 +96,7 @@ var is_valid_array = function(array) {
     var bool = true;
     var i;
     for(i = 0; i < array.length; i++) {
-        if(!is_valid_object(a[i])) {
+        if(!is_valid_object(array[i])) {
             bool = false;
         }
     }
@@ -173,7 +171,7 @@ var fobjTester = function(fobj) {
 };
 var getCurrentTuple = function() {
     if(fobj.isInvalidIndex()) {
-        alert('Value of i is ' + fobj.getArrayIndex() + ' which is invalid');
+        console.log('getCurrentTuple: Value of i is ' + fobj.getArrayIndex() + ' which is invalid');
     }
     return fobj.getCurrentCard();
 };

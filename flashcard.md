@@ -19,6 +19,8 @@ variables through closure.
     var fobjCreator = function() {
         //TODO: Change to true after development
 
+### Private Variables
+
 By toggling these flags, the program knows how to redraw the webPage everytime
 the redraw function  ( in this case refreshSpan() ) is called.
 
@@ -28,7 +30,6 @@ the redraw function  ( in this case refreshSpan() ) is called.
 We will store our cards in tuple format, similar to python. We have an array of
 objects named array.
 
-        var hello = 'hello';
         var array = [
             {"PAGAR" : "to pay"},
             {"GUSTAR": "to like"},
@@ -42,10 +43,18 @@ array.
 
         var i = 0;
 
+### Member Functions
+
 We have certain basic functions which don't really do anything other than what
 it says they do in their names. The first few are some of them.
 
         return {
+
+
+**THIS FUNCTION HAS NOT BEEN TESTED YET** - This function is meant to be called
+when the user wished to change his card set. It's base purpose is to change the
+value of the cards in the private `array` field.
+
             setArray: function(new_array) {
                 array = new_array;
             },
@@ -67,14 +76,13 @@ it says they do in their names. The first few are some of them.
             getArrayIndex: function() {
                 return i;
             },
+
+The functions `incrementArrayIndex` and `decrementArrayIndex` contain the value
+of `i` to never go below 0 or above `array.length - 1`. Basically `i` is in the
+range [0, array.length). 
+
             incrementArrayIndex: function() {
                 i = (i+1) % array.length;
-                return i;
-            },
-            // UNTESTABLE
-            setRandomArrayIndex: function() {
-                i = Math.random() * array.length;
-                i = Math.floor(i);
                 return i;
             },
             decrementArrayIndex: function() {
@@ -84,10 +92,32 @@ it says they do in their names. The first few are some of them.
                 i = i-1;
                 return i;
             },
+
+
+The method `setRandomArrayIndex` gives us the shuffle feature when we redraw the
+webpage
+
             // UNTESTABLE
+            setRandomArrayIndex: function() {
+                i = Math.random() * array.length;
+                i = Math.floor(i);
+                return i;
+            },
+            // UNTESTABLE
+
+`getArrayLength` gives access to the length of the array. It is calculated on
+the fly and is not stored in any specific varialbe. 
+TODO: Why is it not stored in a variable for O(1) access?
+
             getArrayLength: function() {
                 return array.length;
             },
+
+`isInvalidIndex` checks for two conditions:
+* Is the index outOfBounds?
+* Is the index still in Integer form?
+If even one of these conditions is not met, then the index is invalid.
+
             // UNTESTABLE
             isInvalidIndex: function() {
                 if(i >= array.length || i < 0) {
@@ -98,46 +128,83 @@ it says they do in their names. The first few are some of them.
                 }
                 return false;
             },
-            toggleImage: function() {
-            },
+
+`getCurrentCard` gives us the tuple in the form of { "SPANISH WORD": "english
+meaning" }
+
             // UNTESTABLE
             getCurrentCard: function() {
                 return array[i];
             }
         };
     };
+
+`is_array` is a function taken verbatim from Douglas Crockford's *JavaScript:
+The Good Parts*. It is very difficult to actually tell an array in JavaScript as
+an array is technically an object. This is his method to find an array-
+
+> First, we ask if the value is truthy. We do this to reject null and other
+> falsy values.  Second, we ask if the typeof value is 'object'. This will be
+> true for objects, arrays, and (weirdly) null. Third, we ask if the value has a
+> length property that is a number.  This will always be true for arrays, but
+> usually not for objects. Fourth, we ask if the value contains a splice method.
+> This again will be true for all arrays. Finally, we ask if the length property
+> is enumerable (will length be produced by a for in loop?).  That will be false
+> for all arrays. This is the most reliable test for arrayness that I have 
+> found. It is unfortunate that it is so complicated.
+
     var is_array = function(value) {
         return value &&
             typeof value === 'object' &&
             typeof value.length === 'number' &&
             typeof value.splice === 'function' &&
-            !(value.propertyIsEnumberable('length'));
+            !(value.propertyIsEnumerable('length'));
     };
+
+`is_valid_object` checks whether the argument is a valid tuple. 
+
     var is_valid_object = function(obj) {
         var value = '';
+        //TODO: Defensive Programming Over Here
         var key = Object.keys(obj);
+
+We first check if the object has only a single member. If it does, we read the
+`key`:`value` pair.
+
         if(key.length !== 1) {
             return false;
         } else {
             key = key[0];
         }
         value = obj[key];
+
+If either `key` or `value` is not a string, then this cannot possibly be one
+of the flashcards and an error has occured.
+
         if(typeof value !== 'string' || typeof key !== 'string') {
             return false;
         } else {
             return true;
         }
     };
+
+`is_valid_array` checks whether each card in the array passed is a valid card.
+
     var is_valid_array = function(array) {
         var bool = true;
         var i;
         for(i = 0; i < array.length; i++) {
-            if(!is_valid_object(a[i])) {
+            if(!is_valid_object(array[i])) {
                 bool = false;
             }
         }
         return bool;
     };
+
+`setArray` changes the value of the `array` variable. It is meant to be called
+when the user wants to change card sets. If the user wants to replace his verb
+flashcard set with animal flashcards, then setArray is supposed to be called.
+
     var setArray = function(a) {
         if(!is_array(a)) {
             console.log('setArray: a is not an array');
@@ -147,6 +214,14 @@ it says they do in their names. The first few are some of them.
             fobj.setArray(a);
         }
     };
+
+## Object Tester
+
+`fobjTester` was meant to test all the functions in fobj and print a list of
+results to the console. However, it seems that I cannot reliably test fobj
+because I cannot get full access to the private variables. This is more my fault
+as I am unaware of how to make efficient and reliable tests
+
     var fobjTester = function(fobj) {
         return {
             test_toggleIsSpanish: function() {
@@ -205,12 +280,38 @@ it says they do in their names. The first few are some of them.
             }
         };
     };
+
+## Global Functions
+
+These functions are called my buttons in `flashcard.html`. The functions which
+aren't called are present to assist the called functions in some way or the
+other.
+
+### getCurrentTuple
+
+Returns the Tuple equivalent of the current card in the flashcard object `fobj`
+
     var getCurrentTuple = function() {
         if(fobj.isInvalidIndex()) {
-            alert('Value of i is ' + fobj.getArrayIndex() + ' which is invalid');
+            console.log('getCurrentTuple: Value of i is ' + fobj.getArrayIndex() + ' which is invalid');
         }
         return fobj.getCurrentCard();
     };
+
+### getWord
+
+This has two forms -
+* getWord('english')
+* getWord('spanish')
+In both cases the spanish word is retrieved. This is because our data is in a
+key-value form where the key is the spanish word. To get the english meaning, we
+require the spanish word, but not the other way around.
+
+The `Object.keys` returns an *array* of keys. In this case, because of our data
+structure, there will be only 1 key:- the corresponding spanish word. It will be
+of the form ['SPANISH-WORD']. Hence we access the 0th element which would simply
+be 'SPANISH-WORD'.
+
     var getWord = function(lang) {
         var obj = getCurrentTuple();
         var spanish_word = Object.keys(obj)[0];
