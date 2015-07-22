@@ -2,6 +2,7 @@ var fobjCreator = function() {
     //TODO: Change to true after development
     var is_picture = false;
     var is_spanish = true;
+    var is_shuffle = false;
     var array = [
         {"PAGAR" : "to pay"},
         {"GUSTAR": "to like"},
@@ -20,6 +21,13 @@ var fobjCreator = function() {
         },
         getIsPicture: function() {
             return is_picture;
+        },
+        toggleIsShuffle: function() {
+            is_shuffle = !is_shuffle;
+            return is_shuffle;
+        },
+        getIsShuffle: function() {
+            return is_shuffle;
         },
         toggleIsSpanish: function() {
             is_spanish = !is_spanish;
@@ -217,12 +225,20 @@ var refreshSpan = function() {
         setSpanHTML(word);
     }
 };
-var prevWord = function() {
-    fobj.decrementArrayIndex();
-    refreshSpan();
-};
 var getImageLocation = function() {
     return 'images/' + getWordInSpanish().toUpperCase() + '.jpg';
+};
+var toggleShuffle = function() {
+    var buttonShuffle = document.getElementById("buttonShuffle");
+    var innerText = '';
+    fobj.toggleIsShuffle();
+    if(fobj.getIsShuffle()) {
+        innerText = 'Shuffle: ON';
+    } else {
+        innerText = 'Shuffle: OFF';
+    }
+    buttonShuffle.innerHTML = innerText;
+    refreshSpan();
 };
 var togglePicture = function() {
     fobj.toggleIsPicture();
@@ -236,12 +252,44 @@ var randomWord = function() {
     refreshSpan();
 };
 var nextWord = function() {
-    fobj.incrementArrayIndex();
+    if(fobj.getIsShuffle()) {
+        fobj.setRandomArrayIndex();
+    } else {
+        fobj.incrementArrayIndex();
+    }
+    refreshSpan();
+};
+var prevWord = function() {
+    if(fobj.getIsShuffle()) {
+        fobj.setRandomArrayIndex();
+    } else {
+        fobj.decrementArrayIndex();
+    }
     refreshSpan();
 };
 var toggleLanguage = function() {
     fobj.toggleIsSpanish();
     refreshSpan();
+};
+var searchKeyPress = function(e) {
+    e = e || window.event;
+    if(e.keyCode === 13) {
+        document.getElementById("buttonChangeCardSet").click();
+        return false;
+    }
+    return true;
+};
+var getCardCollection = function(name) {
+    return [
+        {"COCINAR" : "to cook"},
+        {"LLORAR" : "to cry"},
+        {"MONTAR" : "to ride"}
+    ];
+};
+var changeCardSet = function() {
+    var card_set_name = document.getElementById("inputCards").value;
+    var new_array = getCardCollection(card_set_name);
+    fobj.setArray(new_array);
 };
 var fobj = fobjCreator();
 var fobjT = fobjTester(fobj);

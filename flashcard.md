@@ -26,6 +26,7 @@ the redraw function  ( in this case refreshSpan() ) is called.
 
         var is_picture = false;
         var is_spanish = true;
+        var is_shuffle = false;
 
 We will store our cards in tuple format, similar to python. We have an array of
 objects named array.
@@ -64,6 +65,13 @@ value of the cards in the private `array` field.
             },
             getIsPicture: function() {
                 return is_picture;
+            },
+            toggleIsShuffle: function() {
+                is_shuffle = !is_shuffle;
+                return is_shuffle;
+            },
+            getIsShuffle: function() {
+                return is_shuffle;
             },
             toggleIsSpanish: function() {
                 is_spanish = !is_spanish;
@@ -357,13 +365,28 @@ be 'SPANISH-WORD'.
             setSpanHTML(word);
         }
     };
-    var prevWord = function() {
-        fobj.decrementArrayIndex();
-        refreshSpan();
-    };
 
     var getImageLocation = function() {
         return 'images/' + getWordInSpanish().toUpperCase() + '.jpg';
+    };
+
+`toggleShuffle` turns the shuffle mode on and off. It inverts the value of the
+variable in `fobj` called `is_shuffle` and changes the text in the button
+`buttonShuffle` to match the current state. Functions `nextWord()` and
+`prevWord()` check the value of `is_shuffle` before incrementing or decrementing
+the array index.
+
+    var toggleShuffle = function() {
+        var buttonShuffle = document.getElementById("buttonShuffle");
+        var innerText = '';
+        fobj.toggleIsShuffle();
+        if(fobj.getIsShuffle()) {
+            innerText = 'Shuffle: ON';
+        } else {
+            innerText = 'Shuffle: OFF';
+        }
+        buttonShuffle.innerHTML = innerText;
+        refreshSpan();
     };
     var togglePicture = function() {
         fobj.toggleIsPicture();
@@ -377,8 +400,32 @@ be 'SPANISH-WORD'.
         fobj.setRandomArrayIndex();
         refreshSpan();
     };
+
+`nextWord` is supposed to act intuitively as the 'next' key people see in music
+players. In such music players, there is also a shuffle mode which can be either
+OFF or ON. If it is OFF then the function goes to the next card by incrementing
+the `fobj.i`. If it is ON then the function chooses a random index. The call to
+`refreshSpan()` at the end redraws the webpage with the updated value of
+`fobj.i`
+
     var nextWord = function() {
-        fobj.incrementArrayIndex();
+        if(fobj.getIsShuffle()) {
+            fobj.setRandomArrayIndex();
+        } else {
+            fobj.incrementArrayIndex();
+        }
+        refreshSpan();
+    };
+
+`prevWord` acts similar to `nextWord` however, it decrements the array index
+when the shuffle is OFF.
+
+    var prevWord = function() {
+        if(fobj.getIsShuffle()) {
+            fobj.setRandomArrayIndex();
+        } else {
+            fobj.decrementArrayIndex();
+        }
         refreshSpan();
     };
 
@@ -387,6 +434,40 @@ be 'SPANISH-WORD'.
         refreshSpan();
     };
 
+
+`searchKeyPress()` is executed whenever *anything* is entered in the input box
+with id="inputCards". It's main purpose is to change the cards when the user
+hits ENTER. To check if the user has hit enter, it compares the keyCode which is
+the ASCII value of the key entered to 13 which is the ASCII value of ENTER or
+more specifically of CARRIAGE RETURN (\r). If so, we execute the simulate the
+clicking of the button buttonChangeCardSet.
+
+    var searchKeyPress = function(e) {
+        e = e || window.event;
+        if(e.keyCode === 13) {
+            document.getElementById("buttonChangeCardSet").click();
+            return false;
+        }
+        return true;
+    };
+    var getCardCollection = function(name) {
+        return [
+            {"COCINAR" : "to cook"},
+            {"LLORAR" : "to cry"},
+            {"MONTAR" : "to ride"}
+        ];
+    };
+
+
+`changeCardSet` is called when buttonChangeCardSet is pressed. It checks what
+cards the user wants, get's the corresponding array and sets fobj to the new
+array.
+
+    var changeCardSet = function() {
+        var card_set_name = document.getElementById("inputCards").value;
+        var new_array = getCardCollection(card_set_name);
+        fobj.setArray(new_array);
+    };
 
     var fobj = fobjCreator();
     var fobjT = fobjTester(fobj);

@@ -3,6 +3,14 @@
         <link rel="stylesheet" type="text/css" href="flashcard.css">
     </head>
     <body>
+    <datalist id="cards">
+        <option value="AR Verbs">
+        <option value="ER Verbs"> 
+    </datalist>
+    <input id="inputCards" type="text" list="cards" onkeypress="return searchKeyPress(event);">
+    <button id="buttonChangeCardSet" type="button" onClick="changeCardSet()">
+        Change Card Set
+    </button>
     <div>
 
        <span id="word">
@@ -12,14 +20,14 @@
     <button type="button" onclick="prevWord()">
         Previous Word
     </button>
+    <button id="buttonShuffle" type="button" onclick="toggleShuffle()">
+        Shuffle: OFF
+    </button>
     <button type="button" onclick="togglePicture()">
         Toggle Picture
     </button>
     <button type="button" onclick="toggleLanguage()">
         Toggle Language
-    </button>
-    <button type="button" onclick="randomWord()">
-        Random Word
     </button>
     <button type="button" onclick="nextWord()">
         Next Word
