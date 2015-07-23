@@ -14,7 +14,7 @@ following features
 
 fobjCreator has methods which are public but variables which are private. Every
 time fobjCreator is called, an fobj is created. This has access to the private
-variables through closure.
+variables through closure. 
 
     var fobjCreator = function() {
         //TODO: Change to true after development
@@ -46,15 +46,17 @@ array.
 
 ### Member Functions
 
-We have certain basic functions which don't really do anything other than what
-it says they do in their names. The first few are some of them.
+The member functions are returned when `fobjCreator` is called. These will have
+access to the private variables through a property in JavaScript called
+**closure**. Through closures, functions can access properties/variables even
+after the program has exited the scope in which these properties/variables exist
 
         return {
 
 
-**THIS FUNCTION HAS NOT BEEN TESTED YET** - This function is meant to be called
-when the user wished to change his card set. It's base purpose is to change the
-value of the cards in the private `array` field.
+This function is meant to be called when the user wished to change his card set.
+It's base purpose is to change the value of the cards in the private `array`
+field.
 
             setArray: function(new_array) {
                 array = new_array;

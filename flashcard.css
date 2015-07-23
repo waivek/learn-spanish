@@ -1,13 +1,19 @@
 div > span > img {
     height: 125px;
 }
-div {
-    display: table;
+/* #divContainer { */
+/*     height: 125px; */
+/*     background: red; */
+/* } */
+#divCard{
+    float: right;
     height: 125px;
+    display: table;
     background: pink;
-    width: 100%;
+    width: 80%;
 }
-div > span {
+/* div > span { */
+#word{
     
     // Center will work only for one line text blocks
     background-color: rgb(255, 0, 0);
