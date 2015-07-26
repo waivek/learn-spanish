@@ -10,7 +10,7 @@ div > span > img {
     height: 125px;
     display: table;
     background: pink;
-    width: 80%;
+    width: 100%;
 }
 /* div > span { */
 #word{

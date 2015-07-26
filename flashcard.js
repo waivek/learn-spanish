@@ -290,6 +290,7 @@ var changeCardSet = function() {
     var card_set_name = document.getElementById("inputCards").value;
     var new_array = getCardCollection(card_set_name);
     fobj.setArray(new_array);
+    refreshSpan();
 };
 var fobj = fobjCreator();
 var fobjT = fobjTester(fobj);

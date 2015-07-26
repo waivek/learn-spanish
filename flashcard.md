@@ -463,12 +463,13 @@ clicking of the button buttonChangeCardSet.
 
 `changeCardSet` is called when buttonChangeCardSet is pressed. It checks what
 cards the user wants, get's the corresponding array and sets fobj to the new
-array.
+array. `refreshSpan()` call redraws the web-page as the state has changed
 
     var changeCardSet = function() {
         var card_set_name = document.getElementById("inputCards").value;
         var new_array = getCardCollection(card_set_name);
         fobj.setArray(new_array);
+        refreshSpan();
     };
 
     var fobj = fobjCreator();
