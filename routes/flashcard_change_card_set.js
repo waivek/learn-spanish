@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 var getArray = function() {
-    var json = JSON.stringify([
+    var json = [
             {"COCINAR" : "to cook"},
             {"LLORAR" : "to cry"},
             {"MONTAR" : "to ride"}
-        ]);
+        ];
     return json;
 };
 

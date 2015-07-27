@@ -290,30 +290,25 @@ var printXMLHTTPInformation = function(xmlHttp) {
 var globalJSON = '';
 var httpGet = function (theUrl) {
     var xmlHttp = new XMLHttpRequest();
-    var string = 'noob';
+    var array = [];
     xmlHttp.open( "GET", theUrl, false );
     xmlHttp.onreadystatechange = function(){
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
-            globalJSON = JSON.parse(xmlHttp.responseText);
-            console.log(typeof globalJSON);
+            array = JSON.parse(xmlHttp.responseText);
         }
     };
     xmlHttp.send();
+    return array;
 };
 var getCardCollection = function(name) {
     var url = 'http://localhost:3000/flashcard_change_card_set?word=' + 
         spaceToUnderscore(name);
-    httpGet(url);
-    console.log('Global JSON = ' + globalJSON);
-    return globalJSON;
+    return httpGet(url);
 };
 var changeCardSet = function() {
     var card_set_name = document.getElementById("inputCards").value;
     var new_array = getCardCollection(card_set_name);
-    console.log('changeCardSet: new_array = ' + new_array);
-    console.log('globalJSON = ' + globalJSON);
-    fobj.setArray(JSON.parse(new_array));
-    console.log('Value of arrayLength = ' + fobj.getArrayLength());
+    fobj.setArray(new_array);
     refreshSpan();
 };
 var fobj = fobjCreator();
