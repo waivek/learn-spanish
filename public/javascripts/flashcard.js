@@ -290,15 +290,16 @@ var printXMLHTTPInformation = function(xmlHttp) {
 var globalJSON = '';
 var httpGet = function (theUrl) {
     var xmlHttp = new XMLHttpRequest();
-    var array = [];
-    xmlHttp.open( "GET", theUrl, false );
+    var new_array = [];
+    xmlHttp.open( "GET", theUrl, true );
     xmlHttp.onreadystatechange = function(){
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
-            array = JSON.parse(xmlHttp.responseText);
+            new_array = JSON.parse(xmlHttp.responseText);
+            fobj.setArray(new_array);
+            refreshSpan();
         }
     };
     xmlHttp.send();
-    return array;
 };
 var getCardCollection = function(name) {
     var url = 'http://localhost:3000/flashcard_change_card_set?word=' + 
@@ -307,9 +308,7 @@ var getCardCollection = function(name) {
 };
 var changeCardSet = function() {
     var card_set_name = document.getElementById("inputCards").value;
-    var new_array = getCardCollection(card_set_name);
-    fobj.setArray(new_array);
-    refreshSpan();
+    getCardCollection(card_set_name);
 };
 var fobj = fobjCreator();
 var fobjT = fobjTester(fobj);
