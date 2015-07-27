@@ -287,24 +287,27 @@ var printXMLHTTPInformation = function(xmlHttp) {
     console.log('xmlhttp.status is ' + xmlHttp.status);
     console.log('httpGet: xmlHttp.responseText is ' + xmlHttp.responseText);
 };
-var globalJSON = '';
+var parseJsonAndSetArray = function(json) {
+    fobj.setArray(JSON.parse(json));
+    refreshSpan();
+};
 var httpGet = function (theUrl) {
     var xmlHttp = new XMLHttpRequest();
     var new_array = [];
     xmlHttp.open( "GET", theUrl, true );
     xmlHttp.onreadystatechange = function(){
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
-            new_array = JSON.parse(xmlHttp.responseText);
-            fobj.setArray(new_array);
-            refreshSpan();
+            parseJsonAndSetArray(xmlHttp.responseText);
         }
     };
     xmlHttp.send();
 };
-var getCardCollection = function(name) {
-    var url = 'http://localhost:3000/flashcard_change_card_set?word=' + 
+var getUrl = function () {
+    return 'http://localhost:3000/flashcard_change_card_set?word=' + 
         spaceToUnderscore(name);
-    return httpGet(url);
+};
+var getCardCollection = function(name) {
+    return httpGet(getUrl());
 };
 var changeCardSet = function() {
     var card_set_name = document.getElementById("inputCards").value;

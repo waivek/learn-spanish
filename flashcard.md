@@ -463,34 +463,39 @@ clicking of the button buttonChangeCardSet.
         console.log('httpGet: xmlHttp.responseText is ' + xmlHttp.responseText);
     };
 
-    var globalJSON = '';
+
+    var parseJsonAndSetArray = function(json) {
+        fobj.setArray(JSON.parse(json));
+        refreshSpan();
+    };
+
+
+`httpGet` is a simple GET request which is to be used in the form of
+`httpGet('http://localhost:3000/JSON?word=AR');`
+
     var httpGet = function (theUrl) {
         var xmlHttp = new XMLHttpRequest();
         var new_array = [];
         xmlHttp.open( "GET", theUrl, true );
         xmlHttp.onreadystatechange = function(){
             if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
-
-                new_array = JSON.parse(xmlHttp.responseText);
-                fobj.setArray(new_array);
-                refreshSpan();
+                parseJsonAndSetArray(xmlHttp.responseText);
             }
         };
         xmlHttp.send();
     };
 
-    var getCardCollection = function(name) {
-        var url = 'http://localhost:3000/flashcard_change_card_set?word=' + 
+    var getUrl = function () {
+        return 'http://localhost:3000/flashcard_change_card_set?word=' + 
             spaceToUnderscore(name);
-        return httpGet(url);
     };
-
+    var getCardCollection = function(name) {
+        return httpGet(getUrl());
+    };
 
 `changeCardSet` is called when buttonChangeCardSet is pressed. It checks what
 cards the user wants, get's the corresponding array and sets fobj to the new
 array. `refreshSpan()` call redraws the web-page as the state has changed
-
-`httpGet` is a simple GET request which is to be used in the form of `httpGet('http://localhost:3000/JSON?word=AR');`
 
     var changeCardSet = function() {
         var card_set_name = document.getElementById("inputCards").value;
