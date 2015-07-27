@@ -279,19 +279,43 @@ var searchKeyPress = function(e) {
     }
     return true;
 };
+var spaceToUnderscore = function(str) {
+    return str.split(' ').join('_');
+};
+var printXMLHTTPInformation = function(xmlHttp) {
+    console.log('xmlhttp.readyState is ' + xmlHttp.readyState);
+    console.log('xmlhttp.status is ' + xmlHttp.status);
+    console.log('httpGet: xmlHttp.responseText is ' + xmlHttp.responseText);
+};
+var globalJSON = '';
+var httpGet = function (theUrl) {
+    var xmlHttp = new XMLHttpRequest();
+    var string = 'noob';
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.onreadystatechange = function(){
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
+            globalJSON = JSON.parse(xmlHttp.responseText);
+            console.log(typeof globalJSON);
+        }
+    };
+    xmlHttp.send();
+};
 var getCardCollection = function(name) {
-    return [
-        {"COCINAR" : "to cook"},
-        {"LLORAR" : "to cry"},
-        {"MONTAR" : "to ride"}
-    ];
+    var url = 'http://localhost:3000/flashcard_change_card_set?word=' + 
+        spaceToUnderscore(name);
+    httpGet(url);
+    console.log('Global JSON = ' + globalJSON);
+    return globalJSON;
 };
 var changeCardSet = function() {
     var card_set_name = document.getElementById("inputCards").value;
     var new_array = getCardCollection(card_set_name);
-    fobj.setArray(new_array);
+    console.log('changeCardSet: new_array = ' + new_array);
+    console.log('globalJSON = ' + globalJSON);
+    fobj.setArray(JSON.parse(new_array));
+    console.log('Value of arrayLength = ' + fobj.getArrayLength());
     refreshSpan();
 };
 var fobj = fobjCreator();
 var fobjT = fobjTester(fobj);
-fobjT.test_all();
+// fobjT.test_all();
