@@ -1,3 +1,4 @@
+> public/javascripts/flashcard.js
 # Flashcard Page
 
 This page will duplicate the features used in Microsoft PowerPoint to give an
@@ -464,33 +465,34 @@ clicking of the button buttonChangeCardSet.
     };
 
 
-    var parseJsonAndSetArray = function(json) {
+    var setArrayToJson = function(json) {
         fobj.setArray(JSON.parse(json));
-        refreshSpan();
     };
 
+`sendGetRequest` is a simple GET request which is to be used in the form of
+`sendGetRequest('http://localhost:3000/JSON?word=AR');`
 
-`httpGet` is a simple GET request which is to be used in the form of
-`httpGet('http://localhost:3000/JSON?word=AR');`
-
-    var httpGet = function (theUrl) {
+    var sendGetRequest = function (theUrl) {
         var xmlHttp = new XMLHttpRequest();
-        var new_array = [];
         xmlHttp.open( "GET", theUrl, true );
-        xmlHttp.onreadystatechange = function(){
+
+        xmlHttp.onreadystatechange = function() {
             if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
-                parseJsonAndSetArray(xmlHttp.responseText);
+                setArrayToJson(xmlHttp.responseText);
+                refreshSpan();
             }
         };
         xmlHttp.send();
     };
 
-    var getUrl = function () {
+
+    var getCardSetName = function () {
+        return document.getElementById("inputCards").value;
+    };
+
+    var getUrl = function (name) {
         return 'http://localhost:3000/flashcard_change_card_set?word=' + 
             spaceToUnderscore(name);
-    };
-    var getCardCollection = function(name) {
-        return httpGet(getUrl());
     };
 
 `changeCardSet` is called when buttonChangeCardSet is pressed. It checks what
@@ -498,11 +500,49 @@ cards the user wants, get's the corresponding array and sets fobj to the new
 array. `refreshSpan()` call redraws the web-page as the state has changed
 
     var changeCardSet = function() {
-        var card_set_name = document.getElementById("inputCards").value;
-        getCardCollection(card_set_name);
+        sendGetRequest(getUrl(getCardSetName()));
     };
 
     var fobj = fobjCreator();
     var fobjT = fobjTester(fobj);
     // fobjT.test_all();
 
+We are adding an event listener to the entier document. We want keyboard
+controls to be consistent through the webpage. 
+`keyPressed`: If I replace `function keyPressed` with `var key...`, the code
+does not work. The if statement ensures that keys such as JKLP which might be
+pressed in a text field, don't unintentionally trigger unwanted behavioiur.
+
+We then assign key-codes as pseudo-constants. After this, we check if a key
+which is supposed to have a functionality (as indicated by braces in HTML) was
+pressed. If so, we execute said functionality. If not, the function exits.
+
+    document.addEventListener("keydown", keyPressed, false);
+    
+    // TODO: Find out why the following:
+    // var keyPressed = function(e)
+    // TODO: Does not work
+    function keyPressed (e) {
+
+        if (e.target.nodeName == "INPUT") {
+            return ;
+        }
+
+        var KEY_CODE_LEFT_KEY = 37;
+        var KEY_CODE_RIGHT_KEY = 39;
+        var KEY_CODE_J = 74;
+        var KEY_CODE_K = 75;
+        var KEY_CODE_L = 76;
+        var KEY_CODE_P = 80;
+        var keyCode = e.keyCode;
+
+        if (keyCode == KEY_CODE_LEFT_KEY || keyCode == KEY_CODE_J) {
+            prevWord();
+        } else if (keyCode == KEY_CODE_RIGHT_KEY || keyCode == KEY_CODE_K) {
+            nextWord();
+        } else if (keyCode == KEY_CODE_L) {
+            toggleLanguage();
+        } else if (keyCode == KEY_CODE_P) {
+            togglePicture();
+        } 
+    }

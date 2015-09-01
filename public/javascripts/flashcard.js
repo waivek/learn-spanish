@@ -287,32 +287,56 @@ var printXMLHTTPInformation = function(xmlHttp) {
     console.log('xmlhttp.status is ' + xmlHttp.status);
     console.log('httpGet: xmlHttp.responseText is ' + xmlHttp.responseText);
 };
-var parseJsonAndSetArray = function(json) {
+var setArrayToJson = function(json) {
     fobj.setArray(JSON.parse(json));
-    refreshSpan();
 };
-var httpGet = function (theUrl) {
+var sendGetRequest = function (theUrl) {
     var xmlHttp = new XMLHttpRequest();
-    var new_array = [];
     xmlHttp.open( "GET", theUrl, true );
-    xmlHttp.onreadystatechange = function(){
+    xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
-            parseJsonAndSetArray(xmlHttp.responseText);
+            setArrayToJson(xmlHttp.responseText);
+            refreshSpan();
         }
     };
     xmlHttp.send();
 };
-var getUrl = function () {
+var getCardSetName = function () {
+    return document.getElementById("inputCards").value;
+};
+var getUrl = function (name) {
     return 'http://localhost:3000/flashcard_change_card_set?word=' + 
         spaceToUnderscore(name);
 };
-var getCardCollection = function(name) {
-    return httpGet(getUrl());
-};
 var changeCardSet = function() {
-    var card_set_name = document.getElementById("inputCards").value;
-    getCardCollection(card_set_name);
+    sendGetRequest(getUrl(getCardSetName()));
 };
 var fobj = fobjCreator();
 var fobjT = fobjTester(fobj);
 // fobjT.test_all();
+document.addEventListener("keydown", keyPressed, false);
+
+// TODO: Find out why the following:
+// var keyPressed = function(e)
+// TODO: Does not work
+function keyPressed (e) {
+    if (e.target.nodeName == "INPUT") {
+        return ;
+    }
+    var KEY_CODE_LEFT_KEY = 37;
+    var KEY_CODE_RIGHT_KEY = 39;
+    var KEY_CODE_J = 74;
+    var KEY_CODE_K = 75;
+    var KEY_CODE_L = 76;
+    var KEY_CODE_P = 80;
+    var keyCode = e.keyCode;
+    if (keyCode == KEY_CODE_LEFT_KEY || keyCode == KEY_CODE_J) {
+        prevWord();
+    } else if (keyCode == KEY_CODE_RIGHT_KEY || keyCode == KEY_CODE_K) {
+        nextWord();
+    } else if (keyCode == KEY_CODE_L) {
+        toggleLanguage();
+    } else if (keyCode == KEY_CODE_P) {
+        togglePicture();
+    } 
+}
