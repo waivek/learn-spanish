@@ -1,3 +1,14 @@
+body {
+    /* background: #00CCFF */
+
+    /* Centers the background */
+    background: url('../images/bg.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 div > span > img {
     height: 125px;
 }
@@ -9,7 +20,7 @@ div > span > img {
     float: right;
     height: 125px;
     display: table;
-    background: pink;
+    background: #00CCFF;
     width: 100%;
 }
 /* div > span { */
