@@ -2,6 +2,7 @@ body {
     /* background: #00CCFF */
 
     /* Centers the background */
+    /* source - https://css-tricks.com/perfect-full-page-background-image*/
     background: url('../images/bg.jpg') no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -16,13 +17,46 @@ div > span > img {
 /*     height: 125px; */
 /*     background: red; */
 /* } */
+
+
 #divCard{
-    float: right;
+    float:left;
     height: 125px;
     display: table;
-    background: #00CCFF;
-    width: 100%;
+    width: 60%;
+    border: 5px solid red;
+    text-align: center;
 }
+
+#buttonPrev, #buttonNext {
+    display: block;
+    vertical-align: middle;
+}
+
+#divOptions {
+    float:left;
+    height: 125px;
+    width: 30%;
+    border: 5px solid blue;
+}
+
+#buttonShuffle, #buttonTogglePicture, #buttonToggleLanguage {
+    width: 80%;
+    float: left;
+}
+
+
+#divButtons {
+    /* Centers the buttons */
+    text-align: center;
+    clear: both;
+    /* margin: 1.858736059%; */
+    width: 60%;
+    border: 5px solid green;
+    /* position: center; */
+}
+
+
 /* div > span { */
 #word{
     

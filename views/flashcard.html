@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+  <script src='http://127.0.0.1:9001/js/socket.js'></script>
+
+
     <head>
         <link rel="stylesheet" type="text/css" href="/stylesheets/flashcard.css">
     </head>
@@ -8,31 +11,37 @@
         <option value="AR Verbs">
         <option value="ER Verbs"> 
     </datalist>
-    <input id="inputCards" type="text" list="cards" onkeypress="return searchKeyPress(event);">
-    <button id="buttonChangeCardSet" type="button" onClick="changeCardSet()">
-        Change Card Set
-    </button>
-    <div id="divCard">
+    <div id="divCardAndButtons">
+        <div id="divButtons">
+            <input id="inputCards" type="text" list="cards" onkeypress="return searchKeyPress(event);">
+            <button id="buttonChangeCardSet" type="button" onClick="changeCardSet()">
+                Change Card Set
+            </button>
+        </div>
+        <div id="divCard">
+            <button id="buttonPrev" type="button" onclick="prevWord()">
+                Previous Word (J)
+            </button>
 
-       <span id="word">
-            DEFAULT VALUE
-        </span>
+           <span id="word">
+               Default Value
+            </span>
+            <button id="buttonNext" type="button" onclick="nextWord()">
+                Next Word (K)
+            </button>
+        </div>
+        <div id="divOptions">
+            <button id="buttonShuffle" type="button" onclick="toggleShuffle()">
+                Shuffle: OFF
+            </button>
+            <button id="buttonTogglePicture" type="button" onclick="togglePicture()">
+                Toggle Picture (P)
+            </button>
+            <button id="buttonToggleLanguage" type="button" onclick="toggleLanguage()">
+                Toggle Language (L)
+            </button>
+        </div>
     </div>
-    <button type="button" onclick="prevWord()">
-        Previous Word (J)
-    </button>
-    <button id="buttonShuffle" type="button" onclick="toggleShuffle()">
-        Shuffle: OFF
-    </button>
-    <button type="button" onclick="togglePicture()">
-        Toggle Picture (P)
-    </button>
-    <button type="button" onclick="toggleLanguage()">
-        Toggle Language (L)
-    </button>
-    <button type="button" onclick="nextWord()">
-        Next Word (K)
-    </button>
     </body>
     <script  src="/javascripts/flashcard.js"></script>
 </html>
