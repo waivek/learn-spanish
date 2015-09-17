@@ -11,13 +11,17 @@
         /* padding: 35px; */
         width: 300px;
         height: 300px;
+        position: relative;
     }
     .top {
         width: 33.3%;
         height:50px;
         float: left;
+        font-size: 18px;
+        text-align: center;
 
     }
+
 
     #top-left {
         border-radius: 28px 0px 0px 0px;
@@ -30,16 +34,46 @@
         border-radius: 0px 28px 0px 0px;
         background: lightgreen;
     }
-        
+
+    .bottom {
+        width: 50%;
+        height: 50px;
+        position: absolute;
+        bottom: 0;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    #bottom-left {
+        border-radius: 0px 0px 0px 28px;
+        background: green;
+        left:0;
+    }
+
+    #bottom-right {
+        background: orange;
+        border-radius: 0px 0px 28px 0px;
+        right: 0;
+    }
+     
     </style>
 <body>
     <div id="box">
-        <div class="top" id="top-left">
-        </div>
-        <div class="top" id="top-middle">
-        </div>
-        <div class="top" id="top-right">
-        </div>
+        <span class="top" id="top-left">
+            Toggle Picture (P)
+        </span>
+        <span class="top" id="top-middle">
+            Shuffle (S)
+        </span>
+        <span class="top" id="top-right">
+            Toggle Language (L)
+        </span>
+        <span class="bottom" id="bottom-left">
+            Prev
+        </span>
+        <span class="bottom" id="bottom-right">
+            Next
+        </span>
     </div>
 </body>
 </html>
