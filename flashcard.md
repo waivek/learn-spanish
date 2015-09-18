@@ -380,7 +380,7 @@ variable in `fobj` called `is_shuffle` and changes the text in the button
 the array index.
 
     var toggleShuffle = function() {
-        var buttonShuffle = document.getElementById("buttonShuffle");
+        var buttonShuffle = document.getElementById("top-middle");
         var innerText = '';
         fobj.toggleIsShuffle();
         if(fobj.getIsShuffle()) {

@@ -229,7 +229,7 @@ var getImageLocation = function() {
     return 'images/' + getWordInSpanish().toUpperCase() + '.jpg';
 };
 var toggleShuffle = function() {
-    var buttonShuffle = document.getElementById("buttonShuffle");
+    var buttonShuffle = document.getElementById("top-middle");
     var innerText = '';
     fobj.toggleIsShuffle();
     if(fobj.getIsShuffle()) {
