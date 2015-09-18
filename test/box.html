@@ -47,9 +47,10 @@
     }
 
     #word {
-        background-color: rgb(255, 0, 0);
+        background-color: lightgrey;
         display: table-cell;
         vertical-align: middle;
+        font-size: 40px;
     }
 
     .bottom {
@@ -78,14 +79,15 @@
      
     </style>
 <body>
+
     <div id="box">
-        <span class="top" id="top-left">
+        <span class="top" id="top-left" onclick="togglePicture()">
             Toggle Picture (P)
         </span>
-        <span class="top" id="top-middle">
+        <span class="top" id="top-middle" onclick="toggleShuffle()">
             Shuffle (S)
         </span>
-        <span class="top" id="top-right">
+        <span class="top" id="top-right" onclick="toggleLanguage()">
             Toggle Language (L)
         </span>
         <div class="middle" >
@@ -93,10 +95,10 @@
                 Span Text
             </span>
         </div>
-        <span class="bottom" id="bottom-left">
+        <span class="bottom" id="bottom-left" onclick="prevWord()">
             Prev (J)
         </span>
-        <span class="bottom" id="bottom-right">
+        <span class="bottom" id="bottom-right" onclick="nextWord()">
             Next (K)
         </span>
     </div>
