@@ -28,6 +28,7 @@ div > span > img {
     position: relative;
     float: left;
     margin: 160px;
+    cursor: pointer;
 }
 .top {
     width: 33.3%;
