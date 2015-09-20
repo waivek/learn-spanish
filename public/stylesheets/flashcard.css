@@ -11,13 +11,9 @@ body {
     float: right;
 }
 
-div > span > img {
+#word > img {
     height: 125px;
 }
-/* #divContainer { */
-/*     height: 125px; */
-/*     background: red; */
-/* } */
 
 #box {
     border-radius: 12px ;
@@ -28,7 +24,6 @@ div > span > img {
     position: relative;
     float: left;
     margin: 160px;
-    cursor: pointer;
 }
 .top {
     width: 33.3%;
@@ -39,10 +34,12 @@ div > span > img {
     font-family: "calibri";
     line-height: 50px;
 
+    cursor: pointer;
 }
+
 #top-left {
     border-radius: 12px 0px 0px 0px;
-    background: pink;
+    background: lightgreen;
 }
 #top-middle {
     background: lightblue;
@@ -63,7 +60,7 @@ div > span > img {
 }
 
 #word {
-    background-color: lightgrey;
+    background-color: white;
     display: table-cell;
     vertical-align: middle;
     font-size: 40px;
@@ -79,6 +76,8 @@ div > span > img {
     text-align: center;
     vertical-align: middle;
     line-height: 50px;
+
+    cursor: pointer;
 }
 
 #bottom-left {
@@ -92,13 +91,3 @@ div > span > img {
     border-radius: 0px 0px 12px 0px;
     right: 0;
 }
- 
-
-
-
-
-
-
-
-
-/* div > span { */

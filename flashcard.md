@@ -546,3 +546,36 @@ pressed. If so, we execute said functionality. If not, the function exits.
             togglePicture();
         } 
     }
+
+    var foo = function (ele) {
+        console.log("element    = " + ele);
+        console.log("element id = " + ele.id);
+    };
+
+    var toggleColor = function (colorInitial, colorFinal, element) {
+        var alreadyToggled = element.style.background == colorFinal;
+        console.log("element.style.background : " + element.style.background)
+        element.style.background = alreadyToggled ? colorInitial : colorFinal;
+        console.log("alreadyToggled = " + alreadyToggled);
+        console.log("colorInitial : " + colorInitial);
+        console.log("colorFinal : " + colorFinal);        
+        console.log("element.style.background : " + element.style.background)
+    };
+
+    var togglePictureAndInvertColor = function (ele) {
+        togglePicture();
+        var left = document.getElementById("top-left");
+        toggleColor("lightgreen", "orange", left);
+    };
+
+    var toggleShuffleAndInvertColor = function (ele) {
+        toggleShuffle();
+        var middle = document.getElementById("top-middle");
+        toggleColor("lightblue", "orange", middle);
+    };
+
+    var toggleLanguageAndInvertColor = function (ele) {
+        toggleLanguage();
+        var right = document.getElementById("top-right");
+        toggleColor("lightgreen", "purple", right);
+    };

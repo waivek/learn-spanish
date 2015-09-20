@@ -18,26 +18,26 @@
     <!--     </button> -->
     <!-- </div> -->
     <div id="box">
-        <span class="top" id="top-left" onclick="togglePicture()">
+        <a class="top" id="top-left" onclick="togglePictureAndInvertColor(this)">
             Toggle Picture (P)
-        </span>
-        <span class="top" id="top-middle" onclick="toggleShuffle()">
+        </a>
+        <a class="top" id="top-middle" onclick="toggleShuffleAndInvertColor(this)">
             Shuffle: OFF (S)
-        </span>
-        <span class="top" id="top-right" onclick="toggleLanguage()">
+        </a>
+        <a class="top" id="top-right" onclick="toggleLanguageAndInvertColor(this)">
             Toggle Language (L)
-        </span>
+        </a>
         <div class="middle" >
-            <span id="word">
+            <a id="word">
                 Span Text
-            </span>
+            </a>
         </div>
-        <span class="bottom" id="bottom-left" onclick="prevWord()">
+        <a class="bottom" id="bottom-left" onclick="prevWord()">
             Prev (J)
-        </span>
-        <span class="bottom" id="bottom-right" onclick="nextWord()">
+        </a>
+        <a class="bottom" id="bottom-right" onclick="nextWord()">
             Next (K)
-        </span>
+        </a>
     </div>
     </body>
     <script  src="/javascripts/flashcard.js"></script>
