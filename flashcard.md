@@ -375,7 +375,7 @@ be 'SPANISH-WORD'.
 
 `toggleShuffle` turns the shuffle mode on and off. It inverts the value of the
 variable in `fobj` called `is_shuffle` and changes the text in the button
-`buttonShuffle` to match the current state. Functions `nextWord()` and
+`top-middle` to match the current state. Functions `nextWord()` and
 `prevWord()` check the value of `is_shuffle` before incrementing or decrementing
 the array index.
 
