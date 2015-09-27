@@ -547,10 +547,10 @@ pressed. If so, we execute said functionality. If not, the function exits.
         } 
     }
 
-    var foo = function (ele) {
-        console.log("element    = " + ele);
-        console.log("element id = " + ele.id);
-    };
+Added a hex to RGB converter. The online colorscheme picker was giving all the
+colors in hex format which was a pain to manually convert to RGB.
+`hexToRGB` takes a string in hex format and returns a JavaScript compatible
+equivalent of the hex color.
 
     var hexToR = function (h) { return parseInt((cutHex(h)).substring(0,2),16); };
     var hexToG = function (h) { return parseInt((cutHex(h)).substring(2,4),16); };
@@ -568,6 +568,14 @@ pressed. If so, we execute said functionality. If not, the function exits.
 
         return rgb;
     };
+
+`toggleColor` is meant for toggling the color of the upper three buttons in the
+flaschard window. As they are boolean flags, it makes visual sense to have their
+colors slightly toggled when clicked. We pass a bool to ensure that there is a
+proper link between the toggled `element` and this function. I had originally
+tried to do toggling based on whether the current `element.style.background` had
+value equal to `colorInitial` or `colorFinal` but JavaScript gets confused with
+colors when they are converted from Hex to RGB. 
 
     var toggleColor = function (colorInitial, colorFinal, element, bool) {
         if ( bool ) {

@@ -340,10 +340,6 @@ function keyPressed (e) {
         togglePicture();
     } 
 }
-var foo = function (ele) {
-    console.log("element    = " + ele);
-    console.log("element id = " + ele.id);
-};
 var hexToR = function (h) { return parseInt((cutHex(h)).substring(0,2),16); };
 var hexToG = function (h) { return parseInt((cutHex(h)).substring(2,4),16); };
 var hexToB = function (h) { return parseInt((cutHex(h)).substring(4,6),16); };
@@ -365,21 +361,21 @@ var toggleColor = function (colorInitial, colorFinal, element, bool) {
         element.style.background = colorFinal;
     }
 };
-var togglePictureAndInvertColor = function (ele) {
+var togglePictureAndInvertColor = function () {
     var color1 = hexToRGB( "5E0DAC" );
     var color2 = hexToRGB( "8D41D6" );
     togglePicture();
     var left = document.getElementById("top-left");
     toggleColor (color1, color2, left, fobj.getIsPicture());
 };
-var toggleShuffleAndInvertColor = function (ele) {
+var toggleShuffleAndInvertColor = function () {
     var color1 = hexToRGB( "FFC500" );
     var color2 = hexToRGB( "A68000" );
     toggleShuffle();
     var middle = document.getElementById("top-middle");
     toggleColor (color1, color2, middle, fobj.getIsShuffle());
 };
-var toggleLanguageAndInvertColor = function (ele) {
+var toggleLanguageAndInvertColor = function () {
     var color1 = hexToRGB(" 0C5DA5 ");
     var color2 = hexToRGB(" 043A6B ");
     toggleLanguage();
