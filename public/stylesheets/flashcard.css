@@ -39,14 +39,14 @@ body {
 
 #top-left {
     border-radius: 12px 0px 0px 0px;
-    background: lightgreen;
+    background: white;
 }
 #top-middle {
-    background: lightblue;
+    background: white;
 }
 #top-right {
     border-radius: 0px 12px 0px 0px;
-    background: lightgreen;
+    background: white;
 }
 
 .middle {
