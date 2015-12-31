@@ -1,13 +1,9 @@
 var express = require('express');
 var router = express.Router();
-
+var cards =  require('../flashcard.json');
 
 var getArray = function(word) {
-    var json = [
-            {"COCINAR" : "to cook"},
-            {"LLORAR" : "to cry"},
-            {"MONTAR" : "to ride"}
-        ];
+    var json = cards[word];
     return json;
 };
 

@@ -335,9 +335,9 @@ function keyPressed (e) {
     } else if (keyCode == KEY_CODE_RIGHT_KEY || keyCode == KEY_CODE_K) {
         nextWord();
     } else if (keyCode == KEY_CODE_L) {
-        toggleLanguage();
+        toggleLanguageAndInvertColor();
     } else if (keyCode == KEY_CODE_P) {
-        togglePicture();
+        togglePictureAndInvertColor();
     } 
 }
 var hexToR = function (h) { return parseInt((cutHex(h)).substring(0,2),16); };
@@ -382,3 +382,16 @@ var toggleLanguageAndInvertColor = function () {
     var right = document.getElementById("top-right");
     toggleColor (color1, color2, right, fobj.getIsSpanish());
 };
+var initialize = function () {
+    var color_is_picture    = hexToRGB( "5E0DAC" );
+    var color_isnot_picture = hexToRGB( "8D41D6" );
+    var color_is_shuffle    = hexToRGB( "FFC500" );
+    var color_isnot_shuffle = hexToRGB( "A68000" );
+    var color_is_spanish    = hexToRGB(" 0C5DA5 ");
+    var color_isnot_spanish = hexToRGB(" 043A6B ");
+    document.getElementById("top-left").style.background = color_isnot_picture;
+    document.getElementById("top-middle").style.background = color_isnot_shuffle;
+    document.getElementById("top-right").style.background = color_is_spanish;
+    refreshSpan();
+};
+initialize();

@@ -7,16 +7,18 @@
         <link rel="stylesheet" type="text/css" href="/stylesheets/flashcard.css">
     </head>
     <body>
-    <!-- <datalist id="cards"> -->
-    <!--     <option value="AR Verbs"> -->
-    <!--     <option value="ER Verbs">  -->
-    <!-- </datalist> -->
-    <!-- <div id="divButtons"> -->
-    <!--     <input id="inputCards" type="text" list="cards" onkeypress="return searchKeyPress(event);"> -->
-    <!--     <button id="buttonChangeCardSet" type="button" onClick="changeCardSet()"> -->
-    <!--         Change Card Set -->
-    <!--     </button> -->
-    <!-- </div> -->
+
+    <datalist id="cards">
+        <option value="AR_VERBS">
+        <option value="ER_VERBS"> 
+    </datalist>
+    <div id="divButtons">
+        <input id="inputCards" type="text" list="cards" onkeypress="return searchKeyPress(event);">
+        <button id="buttonChangeCardSet" type="button" onClick="changeCardSet()">
+            Change Card Set
+        </button>
+    </div>
+
     <div id="box">
         <a class="top" id="top-left" onclick="togglePictureAndInvertColor(this)">
             Toggle Picture (P)

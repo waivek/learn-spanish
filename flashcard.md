@@ -541,9 +541,9 @@ pressed. If so, we execute said functionality. If not, the function exits.
         } else if (keyCode == KEY_CODE_RIGHT_KEY || keyCode == KEY_CODE_K) {
             nextWord();
         } else if (keyCode == KEY_CODE_L) {
-            toggleLanguage();
+            toggleLanguageAndInvertColor();
         } else if (keyCode == KEY_CODE_P) {
-            togglePicture();
+            togglePictureAndInvertColor();
         } 
     }
 
@@ -611,3 +611,20 @@ colors when they are converted from Hex to RGB.
 
         toggleColor (color1, color2, right, fobj.getIsSpanish());
     };
+
+`initialize` function should ideally not exist. Try and change code such that
+these colors and refreshSpan() are take care of in CSS/HTML
+
+    var initialize = function () {
+        var color_is_picture    = hexToRGB( "5E0DAC" );
+        var color_isnot_picture = hexToRGB( "8D41D6" );
+        var color_is_shuffle    = hexToRGB( "FFC500" );
+        var color_isnot_shuffle = hexToRGB( "A68000" );
+        var color_is_spanish    = hexToRGB(" 0C5DA5 ");
+        var color_isnot_spanish = hexToRGB(" 043A6B ");
+        document.getElementById("top-left").style.background = color_isnot_picture;
+        document.getElementById("top-middle").style.background = color_isnot_shuffle;
+        document.getElementById("top-right").style.background = color_is_spanish;
+        refreshSpan();
+    };
+    initialize();
