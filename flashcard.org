@@ -1,0 +1,22 @@
+* Flashcard Page
+This page will duplicate the features used in Microsoft PowerPoint to give an
+efficient tool to help memorize difficult words in Spanish. It will have the
+following features
++ English-Spanish Mode
++ Pictures for individual words
++ A gallery on the left hand side to easily select images
++ Keyboard Shortcuts
++ Ability to change card-list
+** Object Creator
+fobjCreator has methods which are public but variables which are private. Every
+time fobjCreator is called, an fobj is created. This has access to the private
+variables through closure. 
+
+#+BEGIN_SRC js :tangle tangle.js
+console.log("Hello, World");
+#+END_SRC
+
+Also, make sure you don't debug.
+#+BEGIN_SRC js :tangle tangle.js
+console.log("Goodbye, World!");
+#+END_SRC
