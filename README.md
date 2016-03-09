@@ -9,6 +9,9 @@ It is an express application
 # Installation 
 
 `git clone` the repository onto your desktop
+
 From the command window run the command 
+
 `node bin\www`
+
 The site will be visible on `localhost:3000/flashcard`
