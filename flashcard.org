@@ -3,8 +3,8 @@ This page will duplicate the features used in Microsoft PowerPoint to give an
 efficient tool to help memorize difficult words in Spanish. It will have the
 following features
 + English-Spanish Mode
-+ Pictures for individual words
 + A gallery on the left hand side to easily select images
++ Pictures for individual words
 + Keyboard Shortcuts
 + Ability to change card-list
 ** Object Creator
